@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="nitlibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="books" Relationship="nitlibraryModel.FK_book_author" FromRole="author" ToRole="book" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="catname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="books" Relationship="nitlibraryModel.FK_book_category" FromRole="category" ToRole="book" />
+  </EntityType>
+  <EntityType Name="publisher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="books" Relationship="nitlibraryModel.FK_book_publisher" FromRole="publisher" ToRole="book" />
+  </EntityType>
+  <EntityContainer Name="nitlibraryEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="authors" EntityType="Self.author" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="publishers" EntityType="Self.publisher" />
+    <EntitySet Name="books" EntityType="nitlibraryModel.book" />
+    <AssociationSet Name="FK_book_category" Association="nitlibraryModel.FK_book_category">
+      <End Role="category" EntitySet="categories" />
+      <End Role="book" EntitySet="books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_book_author" Association="nitlibraryModel.FK_book_author">
+      <End Role="author" EntitySet="authors" />
+      <End Role="book" EntitySet="books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_book_publisher" Association="nitlibraryModel.FK_book_publisher">
+      <End Role="publisher" EntitySet="publishers" />
+      <End Role="book" EntitySet="books" />
+    </AssociationSet>
+    <EntitySet Name="issuebooks" EntityType="nitlibraryModel.issuebook" />
+    <EntitySet Name="returnbooks" EntityType="nitlibraryModel.returnbook" />
+    <EntitySet Name="members" EntityType="nitlibraryModel.member" />
+  </EntityContainer>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cat_id" Type="Int32" />
+    <Property Name="a_id" Type="Int32" />
+    <Property Name="p_id" Type="Int32" />
+    <Property Name="contents" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pages" Type="Int32" />
+    <Property Name="edition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="category" Relationship="nitlibraryModel.FK_book_category" FromRole="book" ToRole="category" />
+    <NavigationProperty Name="author" Relationship="nitlibraryModel.FK_book_author" FromRole="book" ToRole="author" />
+    <NavigationProperty Name="publisher" Relationship="nitlibraryModel.FK_book_publisher" FromRole="book" ToRole="publisher" />
+  </EntityType>
+  <Association Name="FK_book_category">
+    <End Type="nitlibraryModel.category" Role="category" Multiplicity="0..1" />
+    <End Type="nitlibraryModel.book" Role="book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_book_author">
+    <End Type="nitlibraryModel.author" Role="author" Multiplicity="0..1" />
+    <End Type="nitlibraryModel.book" Role="book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="a_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_book_publisher">
+    <End Type="nitlibraryModel.publisher" Role="publisher" Multiplicity="0..1" />
+    <End Type="nitlibraryModel.book" Role="book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publisher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="p_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="issuebook">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="m_id" Type="Int32" />
+    <Property Name="book_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issuedate" Type="DateTime" Precision="0" />
+    <Property Name="returndate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="returnbook">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mid" Type="Int32" />
+    <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="returndate" Type="DateTime" Precision="0" />
+    <Property Name="elap" Type="Int32" />
+    <Property Name="fine" Type="Int32" />
+  </EntityType>
+  <EntityType Name="member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

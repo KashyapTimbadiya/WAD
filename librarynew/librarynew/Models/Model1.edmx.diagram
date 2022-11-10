@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="233af156d22946f491d1f4c826da2d9c" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="nitlibraryModel.author" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nitlibraryModel.category" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nitlibraryModel.publisher" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="nitlibraryModel.book" Width="1.5" PointX="5.75" PointY="1.25" />
+        <AssociationConnector Association="nitlibraryModel.FK_book_category" />
+        <AssociationConnector Association="nitlibraryModel.FK_book_author" />
+        <AssociationConnector Association="nitlibraryModel.FK_book_publisher" />
+        <EntityTypeShape EntityType="nitlibraryModel.issuebook" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="nitlibraryModel.returnbook" Width="1.5" PointX="3.375" PointY="5.75" />
+        <EntityTypeShape EntityType="nitlibraryModel.member" Width="1.5" PointX="5.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
